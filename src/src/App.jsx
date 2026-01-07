@@ -24,12 +24,18 @@ export default function ClassSplit() {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiTasks, setAiTasks] = useState([]);
 
-  useEffect(() => {
-    const s = localStorage.getItem('cs');
-    if (s) setGroups(JSON.parse(s));
+ useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const s = localStorage.getItem('cs');
+      if (s) setGroups(JSON.parse(s));
+    }
   }, []);
 
-  useEffect(() => { localStorage.setItem('cs', JSON.stringify(groups)); }, [groups]);
+  useEffect(() => { 
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cs', JSON.stringify(groups)); 
+    }
+  }, [groups]);
 
   const addG = () => {
     if (!gName.trim()) return;
